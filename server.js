@@ -49,7 +49,9 @@ app.get('api/productGetDescription');
 app.post('/api/productinfo/create');// проверить нужен ли / в конце
 app.get('/api/getProductsByCategory');
 app.get('/api/getAllCategories');
-
+app.get('/api/getProductById');
+app.get('/api/getAllBrands');
+app.get('/api/getProductsByBrand', );
 
 /*
 Role.bulkCreate([

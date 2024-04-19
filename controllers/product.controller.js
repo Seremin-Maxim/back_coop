@@ -6,8 +6,8 @@ exports.createProduct = async (req, res) => {
     try {
         const category_id = req.params.category_id;
         const brand_id = req.params.brand_id;
-        console.log("category_id ========== ", category_id);
-        console.log("brand_id ========== ", brand_id);
+        //console.log("category_id ========== ", category_id);
+        //console.log("brand_id ========== ", brand_id);
         const prod = await Product.create({
             category_id: req.body.category_id,
             brand_id: req.body.brand_id,
@@ -35,7 +35,7 @@ exports.getProducts = async (req, res) => {
 exports.createProductInfo = async (req, res) => {
     try {
         const prod_id = req.params.product_id;
-        console.log("INFA O PRODUCTE ==========" + prod_id + " " + " " + req.body.title + " " + req.body.description);
+        //console.log("INFA O PRODUCTE ==========" + prod_id + " " + " " + req.body.title + " " + req.body.description);
         const product_info = await Product_Info.create({
             product_id: prod_id,
             title: req.body.title,
@@ -71,7 +71,7 @@ exports.productGetDescription = async (req, res) => {
 
 exports.getProductsByCategory = async (req, res) => {
     const category_id_local = req.params.category_id;
-    console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
+    //console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
     
     try {
         const products = await Product.findAll({ where: { category_id:  category_id_local} });
@@ -85,6 +85,45 @@ exports.getProductsByCategory = async (req, res) => {
     } catch (error) {
         console.log('Товары по данной категории не найдены', error);
         return res.status(500).json({ error: 'Товары по данной категории не найдены' });
+    }
+};
+
+exports.getProductById = async (req, res) => {
+    const prod_id = req.params.id;
+    //console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
+    
+    try {
+        //console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUU : " + prod_id);
+        const product = await Product.findOne({ where: { id:  prod_id} });
+    
+        if (product) {
+            return res.json(product);
+        } else {
+            console.log('Товар по данному айди не найден');
+            return res.status(404).json({ error: 'ТТовар по данному айди не найден' });
+        }
+    } catch (error) {
+        console.log('Товар по данному айди не найден', error);
+        return res.status(500).json({ error: 'Товар по данному айди не найден' });
+    }
+};
+
+exports.getProductsByBrand = async (req, res) => {
+    const brand_id_local = req.params.brand_id;
+    //console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
+    
+    try {
+        const products = await Product.findAll({ where: { brand_id:  brand_id_local} });
+    
+        if (products) {
+            return res.json(products);
+        } else {
+            console.log('Товары по данному бренду не найдены');
+            return res.status(404).json({ error: 'Товары по данному бренду не найдены' });
+        }
+    } catch (error) {
+        console.log('Товары по данному бренду не найдены', error);
+        return res.status(500).json({ error: 'Товары по данному бренду не найдены' });
     }
 };
 

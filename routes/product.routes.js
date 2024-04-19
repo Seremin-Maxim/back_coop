@@ -10,10 +10,6 @@ module.exports = function(app) {
       next();
     });
 
-    app.get(
-        "/productGetByID/:id_prod",
-        //controller.getProdById
-    );
     app.post(
       "/product/create/:category_id/:brand_id",
       product_controller.createProduct
@@ -39,8 +35,15 @@ module.exports = function(app) {
     "/getProductsByCategory/:category_id",
     product_controller.getProductsByCategory
   );
+  app.get(
+    "/getProductById/:id",
+    product_controller.getProductById
+  )
   
-
+  app.get(
+    "/getProductsByBrand/:brand_id",
+    product_controller.getProductsByBrand
+  )
 
 
     

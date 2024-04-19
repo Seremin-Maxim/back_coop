@@ -24,4 +24,15 @@ exports.getBrandIdByName = async (req, res) => {
     }
 };
 
+exports.getAllBrands = async (req, res) => {
+    const brands = await Brand.findAll();
+    if (brands) {
+        return res.json(brands);
+    } else {
+        return res.status(404).send({ message: "Brands not found =               =============================" });
+    }
+};
+
+
+
 

@@ -19,6 +19,12 @@ module.exports = function(app) {
       "/getbrandID/:name",
       brand_controller.getBrandIdByName
   );
+  app.get(
+    "/getAllBrands",
+    brand_controller.getAllBrands
+);
+  
+
 
 
 };
