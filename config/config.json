@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "last",
+    "password": "q123",
+    "database": "lastdb",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
