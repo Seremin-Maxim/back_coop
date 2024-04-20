@@ -123,14 +123,42 @@ exports.signup = (req, res) => {
             }
           }
         }).then(roles => {
+          console.log("ID REG =============" + customer.id);
+          const token_ = jwt.sign({ id: customer.id },
+            config.secret,
+            {
+              algorithm: 'HS256',
+              allowInsecureKeySizes: true,
+              expiresIn: 86400, // 24 hours
+            });
           customer.setRoles(roles).then(() => {
-            res.send({ message: "Customer was registered successfully!" });
+            res.status(200).send({
+              id: customer.id,
+              name: customer.name,
+              email: customer.email,
+              phone_number: customer.phone_number,
+              token: token_,
+            });
           });
         });
       } else {
-        // customer role = 1
+        //customer role = 1
+        console.log("ID REG =============" + customer.id);
+        const token_ = jwt.sign({ id: customer.id },
+          config.secret,
+          {
+            algorithm: 'HS256',
+            allowInsecureKeySizes: true,
+            expiresIn: 86400, // 24 hours
+          });
         customer.setRoles([1]).then(() => {
-          res.send({ message: "Customer was registered successfully!" });
+          res.status(200).send({
+            id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            phone_number: customer.phone_number,
+            token: token_,
+          });
         });
       }
     })
