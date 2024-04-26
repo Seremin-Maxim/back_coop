@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Order.hasOne(models.Payment, {foreignKey:'order_id'})
+      //Order.hasOne(models.Payment, {foreignKey:'order_id'})
       Order.belongsTo(models.OrderItem, {foreignKey:'order_item_id'})
     }
   }
@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     state: DataTypes.ENUM('заказ создан','на подтверждении','продавец собирает заказ','товары отправлены','товар можно забрать','получена'),
     country: DataTypes.STRING,
-    zip_code: DataTypes.INTEGER
+    zip_code: DataTypes.INTEGER,
+    method: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Order',

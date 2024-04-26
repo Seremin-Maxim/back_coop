@@ -16,13 +16,8 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId',
           as: 'roles'
         })
-      Customer.hasMany(models.Payment,
-        {
-          foreignKey:'customer_id',
-          as:'payments'
-        })
       Customer.hasOne(models.Wishlist, {foreignKey:'customer_id'})
-      Customer.hasOne(models.ShoppingCart, {foreignKey:'customer_id'})
+      Customer.hasOne(models.ShoppingCarts, {foreignKey:'customer_id'})
     }
   }
   Customer.init({

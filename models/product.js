@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasOne(models.Wishlist_Device,{
           foreignKey:'product_id'
       })
-      Product.hasOne(models.ShoppingCart_Device,{
+      Product.hasOne(models.ShoppingCart_Devices,{
           foreignKey:'product_id'
       })
       Product.hasMany(models.Picture,{

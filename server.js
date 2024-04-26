@@ -10,7 +10,7 @@ const authJwt = require("./middleware/authJwt");
 const app = express();
 const brand_controller = require('./controllers/brand.controller');
 const category_controller = require('./controllers/category.controller');
-
+const sh_controller = require("./controllers/shoppingCart.controller");
 const userController = require('./controllers/user.controller');
 
 app.use(cors());
@@ -35,6 +35,7 @@ require('./routes/user.routes')(app);
 require('./routes/brand.routes')(app);
 require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
+require('./routes/shoppingCart.roues')(app);
 
 //маршрут для обработки запросов профиля пользователя
 app.get('api/user/profile',authJwt.verifyToken, userController.getUserProfile);
@@ -52,7 +53,9 @@ app.get('/api/getAllCategories');
 app.get('/api/getProductById');
 app.get('/api/getAllBrands');
 app.get('/api/getProductsByBrand', );
-
+app.post('/api/shoppingCartDevice/create');
+app.post('/api/shoppingCart/create');
+app.get('/api//getSCHIDByCustomer/');
 /*
 Role.bulkCreate([
   {name:"user"},
