@@ -22,5 +22,10 @@ module.exports = function(app) {
     app.get(
         "/getSCHIDByCustomer/:customer_id",
         sh_controller.getSCHIDByCustomer
+    );
+
+    app.get(
+        "/getAllShCDevicesByID/:shc_id",
+        sh_controller.getAllShCDevicesFromByID
     )
 };

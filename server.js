@@ -56,6 +56,7 @@ app.get('/api/getProductsByBrand', );
 app.post('/api/shoppingCartDevice/create');
 app.post('/api/shoppingCart/create');
 app.get('/api//getSCHIDByCustomer/');
+app.get('/api/getAllShCDevicesByID');
 /*
 Role.bulkCreate([
   {name:"user"},
