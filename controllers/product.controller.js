@@ -8,12 +8,14 @@ exports.createProduct = async (req, res) => {
         const brand_id = req.params.brand_id;
         //console.log("category_id ========== ", category_id);
         //console.log("brand_id ========== ", brand_id);
+        console.log("NAME =======================================" + req.body.product_name);
         const prod = await Product.create({
             category_id: req.body.category_id,
             brand_id: req.body.brand_id,
             SDK: req.body.SDK,
             price: req.body.price,
-            stock: req.body.stock
+            stock: req.body.stock,
+            product_name: req.body.product_name
         });
         return res.json(prod);
     } catch (error) {

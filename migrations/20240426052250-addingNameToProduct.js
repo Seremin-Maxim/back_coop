@@ -2,11 +2,18 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
+
   async up (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await Promise.all([
-        queryInterface.removeColumn('Products', 'product_info_id', {transaction}),        
+        queryInterface.addColumn('Products', 'product_name', {
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true
+        }, {
+            transaction,
+        }),
       ]);
       await transaction.commit();
     } catch (err) {
@@ -15,21 +22,11 @@ module.exports = {
     }
   },
 
-  
   async down (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await Promise.all([
-        queryInterface.addColumn('Products ', 'product_info_id', {
-            type: Sequelize.STRING,
-            allowNull: false,
-            references:{
-              model:'Product_Info',
-              key:'id'
-            }
-        }, {
-            transaction,
-        }),
+        queryInterface.removeColumn('Products', 'product_name',{transaction})
       ]);
       await transaction.commit();
     } catch (err) {
