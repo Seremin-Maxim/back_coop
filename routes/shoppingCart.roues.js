@@ -27,5 +27,27 @@ module.exports = function(app) {
     app.get(
         "/getAllShCDevicesByID/:shc_id",
         sh_controller.getAllShCDevicesFromByID
+    );
+
+    //ПОЧЕМУ-ТО РАБОТАЕТ
+    app.delete(
+        "/deleteShCDevice/:product_id", 
+        sh_controller.deleteShCDevice
+    );
+
+    //ВСЕ НИЖЕ НЕ РАБОТАЕТ
+    app.get(
+        "/getShoppingCartDevice/:product_id",
+        sh_controller.checkIfExistsShoppingCartDevice
+    );
+
+    app.put("/shoppingCartDevice/update/:product_id",
+        sh_controller.updateShoppingCartDevice
+    );
+    
+    app.get(
+        "/giveMeFuckingShC_Device/:product_id",
+        sh_controller.checkIfExistsShoppingCartDevice
     )
+
 };

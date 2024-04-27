@@ -55,8 +55,20 @@ app.get('/api/getAllBrands');
 app.get('/api/getProductsByBrand', );
 app.post('/api/shoppingCartDevice/create');
 app.post('/api/shoppingCart/create');
-app.get('/api//getSCHIDByCustomer/');
+app.get('/api/getSCHIDByCustomer/');
 app.get('/api/getAllShCDevicesByID');
+
+//ХЗ СХУЯЛИ, НО РАБОТАЕТ -> в шопингКарт.жсх
+app.delete('api/deleteShCDevice');
+
+//НЕ РАБОТАЕТ
+app.get('/api/getShoppingCartDevice');
+
+//НЕ РАБОТАЕТ
+app.put('/api/shoppingCartDevice/update');
+
+//НЕ РАБОТАЕТ(ДУБЛИКАТ ГЕТА из 64 строки)
+app.get('/api/giveMeFuckingShC_Device/');
 /*
 Role.bulkCreate([
   {name:"user"},
