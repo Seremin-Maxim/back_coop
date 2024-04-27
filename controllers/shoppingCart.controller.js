@@ -49,7 +49,6 @@ exports.getSCHIDByCustomer = async (req, res) => {
 exports.getAllShCDevicesFromByID = async (req, res) => {
     try{
         const shc_id = req.params.shc_id;
-        //console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO SHC_ID +++++==" + shc_id);
         const shoppingCart_Devices = await ShCDevice.findAll({ where: { shc_id: shc_id } })
         return res.json(shoppingCart_Devices);
     }catch (error) {
@@ -84,26 +83,33 @@ exports.updateShoppingCartDevice = async (req, res) => {
         const prod_id = req.params.product_id;
         const newQuantity = req.body.quantity;
         const stock = req.body.stock;
-
+        let flag;
         const currentDevice = await ShCDevice.findOne({ where: { product_id: prod_id } });
         if (!currentDevice) {
             return res.status(404).json({ error: 'Устройство не найдено' });
         }
 
         // Обновляем количество
-        const updatedQuantity = currentDevice.quantity + newQuantity;
-        if (updatedQuantity > stock) {
-            return res.status(400).json({ error: 'Недостаточно товара на складе' });
+        let updatedQuantity;
+        if (currentDevice.quantity + newQuantity > stock) {
+            //return res.status(400).json({ error: 'Недостаточно товара на складе' });
+            updatedQuantity = stock;
+            flag = true;
+        }else{
+            updatedQuantity = currentDevice.quantity + newQuantity;
+            flag = false;
         }
-
         const shc_device = await ShCDevice.update(
             { quantity: updatedQuantity },
             { where: { product_id: prod_id } }
         )
 
-        if (shc_device[0] !== 0) {
-            return res.json({ message: 'Устройство успешно обновлено' });
-        } else {
+        if (shc_device[0] !== 0 && !flag) {
+            return res.json({ message: 'Устройство успешно обновлено', quantity_out_of_stock: false });
+        } else if(shc_device[0] !== 0 && flag){
+            return res.json({ message: 'Устройство успешно обновлено', quantity_out_of_stock: true });
+        }
+        else {
             return res.status(404).json({ error: 'Устройство не найдено' });
         }
     }catch (error) {
@@ -115,13 +121,10 @@ exports.updateShoppingCartDevice = async (req, res) => {
 exports.checkIfExistsShoppingCartDevice = async (req, res) => {
     try {
         const prod_id = req.params.product_id;
-        console.log("ID =========================" + prod_id);
         const shc_device = await ShCDevice.findOne({ where: { product_id: prod_id } });
         if (shc_device) {
-            console.log("it exists !!!!!!!!!!!!!!!");
             return res.json({ product_exists: true, shc_device: shc_device });
         } else {
-            console.log("no such item (((((((((((((((((((");
             return res.json({ product_exists: false });
         }
     } catch (error) {
