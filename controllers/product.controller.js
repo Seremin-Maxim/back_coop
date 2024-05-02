@@ -158,7 +158,7 @@ exports.searchProducts = async (req, res) => {
       const products = await Product.findAll({
         where: {
           product_name: {
-            [Op.iLike]: `${name}%`
+            [Op.iLike]: `%${name}%`
           }
         }
       });
