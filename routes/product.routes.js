@@ -38,13 +38,21 @@ module.exports = function(app) {
   app.get(
     "/getProductById/:id",
     product_controller.getProductById
-  )
+  );
   
   app.get(
     "/getProductsByBrand/:brand_id",
     product_controller.getProductsByBrand
-  )
+  );
 
+  app.get(
+    "/getProductByName",
+    product_controller.getProductByName
+  );
+
+  app.get("/searchProducts",
+  product_controller.searchProducts
+);
 
     
 

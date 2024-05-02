@@ -67,8 +67,9 @@ app.get('/api/getShoppingCartDevice');
 //НЕ РАБОТАЕТ
 app.put('/api/shoppingCartDevice/update');
 
-//НЕ РАБОТАЕТ(ДУБЛИКАТ ГЕТА из 64 строки)
-app.get('/api/giveMeFuckingShC_Device/');
+app.get('/api/getProductByName');
+
+app.get('/api/searchProducts');
 /*
 Role.bulkCreate([
   {name:"user"},
