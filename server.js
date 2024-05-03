@@ -4,6 +4,7 @@ const cors = require('cors');
 const httpProxy = require('http-proxy');
 const proxy = httpProxy.createProxyServer();
 const models = require("./models");
+const fileUpload = require('express-fileupload');
 const Role = models.Role;
 const router = express.Router();
 const authJwt = require("./middleware/authJwt");
@@ -12,6 +13,7 @@ const brand_controller = require('./controllers/brand.controller');
 const category_controller = require('./controllers/category.controller');
 const sh_controller = require("./controllers/shoppingCart.controller");
 const userController = require('./controllers/user.controller');
+const picturesController = require('./controllers/picture.controller')
 
 app.use(cors());
 
@@ -19,6 +21,10 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/static', express.static('./static'));
+
+app.use('/images', express.static('./images'));
 
 //app.use('/home', authJwt.verifyToken, router);
 /*
@@ -30,18 +36,25 @@ app.get("", (req,res)=>{
   res.send("Hell, its working...");
 });
 
+app.use(fileUpload());
+
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/brand.routes')(app);
 require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/shoppingCart.roues')(app);
+require('./routes/picture.routes')(app);
 
 //маршрут для обработки запросов профиля пользователя
 app.get('api/user/profile',authJwt.verifyToken, userController.getUserProfile);
-
 app.post('api/brand/create', brand_controller.createBrand);
 app.post('api/category/create', category_controller.createCategory);
+
+app.post('/api/picture/upload');
+app.get('/api/getAllImages');
+
+
 app.get('api/getbrandID');
 app.get('api/getcategoryID');
 app.get('api/product/create/');
@@ -58,6 +71,7 @@ app.post('/api/shoppingCart/create');
 app.get('/api/getSCHIDByCustomer/');
 app.get('/api/getAllShCDevicesByID');
 
+
 //ХЗ СХУЯЛИ, НО РАБОТАЕТ -> в шопингКарт.жсх
 app.delete('api/deleteShCDevice');
 
@@ -69,6 +83,10 @@ app.put('/api/shoppingCartDevice/update');
 
 //НЕ РАБОТАЕТ(ДУБЛИКАТ ГЕТА из 64 строки)
 app.get('/api/giveMeFuckingShC_Device/');
+
+app.get('/api/getProductByName');
+
+app.get('/api/searchProducts');
 /*
 Role.bulkCreate([
   {name:"user"},

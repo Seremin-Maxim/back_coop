@@ -1,4 +1,8 @@
 const db = require("../models");
+const uuid = require('uuid');
+const path = require('path');
+const {Op} = require('sequelize');
+
 const Product = db.Product;
 const Product_Info = db.Product_Info;
 
@@ -6,8 +10,12 @@ exports.createProduct = async (req, res) => {
     try {
         const category_id = req.params.category_id;
         const brand_id = req.params.brand_id;
+        const img = req.files.img;
+        let fileName = uuid.v4() + ".jpg"
+        img.mv(path.resolve(__dirname,'..','static',fileName))
         //console.log("category_id ========== ", category_id);
         //console.log("brand_id ========== ", brand_id);
+        console.log("CARTIIIIIIIIIIIIIIIINKA =", img)
         console.log("NAME =======================================" + req.body.product_name);
         const prod = await Product.create({
             category_id: req.body.category_id,
@@ -15,8 +23,10 @@ exports.createProduct = async (req, res) => {
             SDK: req.body.SDK,
             price: req.body.price,
             stock: req.body.stock,
-            product_name: req.body.product_name
+            product_name: req.body.product_name,
+            img: fileName
         });
+        console.log("CHTO ZA BUSINESS SUKA", prod)
         return res.json(prod);
     } catch (error) {
         console.error('Ошибка при создании продукта:', error);
@@ -128,4 +138,41 @@ exports.getProductsByBrand = async (req, res) => {
         return res.status(500).json({ error: 'Товары по данному бренду не найдены' });
     }
 };
+
+exports.getProductByName = async (req, res) => {
+    const name = req.query.name;
+    //console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
+    
+    try {
+        //console.log("Name : " + name);
+        const product = await Product.findOne({ where: { product_name:  name} });
+        //console.log("ID ====" + product.id + " PRICE====" + product.price);
+        if (product) {
+            return res.json(product);
+        } else {
+            console.log('Товар по данному имени не найден');
+            return res.status(403).json({ error: 'Товар по данному имени не найден' });
+        }
+    } catch (error) {
+        console.log('Товар по данному имени не найден', error);
+        return res.status(500).json({ error: 'Товар по данному имени не найден' });
+    }
+};
+
+exports.searchProducts = async (req, res) => {
+    const name = req.query.name;
+    try {
+      const products = await Product.findAll({
+        where: {
+          product_name: {
+            [Op.iLike]: `%${name}%`
+          }
+        }
+      });
+      return res.json(products);
+    } catch (error) {
+      console.error('Ошибка при поиске товаров:', error);
+      return res.status(500).json({ error: 'Ошибка при поиске товаров' });
+    }
+  };
 

@@ -45,6 +45,15 @@ module.exports = function(app) {
     product_controller.getProductsByBrand
   )
 
+  app.get(
+    "/getProductByName",
+    product_controller.getProductByName
+  );
+
+  app.get("/searchProducts",
+  product_controller.searchProducts
+);
+
 
     
 

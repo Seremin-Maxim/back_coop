@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "last",
-    "password": "q123",
-    "database": "lastdb",
+    "username": "arseniy",
+    "password": "qwerty",
+    "database": "myfirstdatabase",
     "host": "localhost",
     "dialect": "postgres"
   }
