@@ -43,7 +43,7 @@ module.exports = function(app) {
   app.get(
     "/getProductsByBrand/:brand_id",
     product_controller.getProductsByBrand
-  );
+  )
 
   app.get(
     "/getProductByName",
@@ -53,6 +53,7 @@ module.exports = function(app) {
   app.get("/searchProducts",
   product_controller.searchProducts
 );
+
 
     
 

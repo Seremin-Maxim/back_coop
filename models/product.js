@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasOne(models.ShoppingCart_Devices,{
           foreignKey:'product_id'
       })
-      Product.hasMany(models.Picture,{
+      Product.hasMany(models.Pictures,{
         foreignKey:'product_id'
       })
       // ЭТО Я ИЗМЕНИЛ
-      Product.hasOne(models.OrderItem, {
+      Product.hasOne(models.OrderItems, {
         foreignKey: 'order_item_id'
     });
       Product.belongsTo(models.Brands,
@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     SDK: DataTypes.STRING,
     price: DataTypes.INTEGER,
     stock: DataTypes.INTEGER,
-    product_name: DataTypes.STRING
+    product_name: DataTypes.STRING,
+    img: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Product',

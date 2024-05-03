@@ -1,24 +1,33 @@
 const db = require("../models");
+const uuid = require('uuid');
+const path = require('path');
+const {Op} = require('sequelize');
+
 const Product = db.Product;
 const Product_Info = db.Product_Info;
-const { Op } = require('sequelize');
 
 
 exports.createProduct = async (req, res) => {
     try {
         const category_id = req.params.category_id;
         const brand_id = req.params.brand_id;
+        const img = req.files.img;
+        let fileName = uuid.v4() + ".jpg"
+        img.mv(path.resolve(__dirname,'..','static',fileName))
         //console.log("category_id ========== ", category_id);
         //console.log("brand_id ========== ", brand_id);
-        console.log("NAME =======================================" + req.body.product_name);
+        //console.log("CARTIIIIIIIIIIIIIIIINKA =", img)
+        //console.log("NAME =======================================" + req.body.product_name);
         const prod = await Product.create({
             category_id: req.body.category_id,
             brand_id: req.body.brand_id,
             SDK: req.body.SDK,
             price: req.body.price,
             stock: req.body.stock,
-            product_name: req.body.product_name
+            product_name: req.body.product_name,
+            img: fileName
         });
+        //console.log("CHTO ZA BUSINESS SUKA", prod)
         return res.json(prod);
     } catch (error) {
         console.error('Ошибка при создании продукта:', error);
@@ -131,7 +140,6 @@ exports.getProductsByBrand = async (req, res) => {
     }
 };
 
-
 exports.getProductByName = async (req, res) => {
     const name = req.query.name;
     //console.log("CATEGORY ID IN GETPRODBYCAT ==============" + category_id_local);
@@ -168,5 +176,4 @@ exports.searchProducts = async (req, res) => {
       return res.status(500).json({ error: 'Ошибка при поиске товаров' });
     }
   };
-  
 
