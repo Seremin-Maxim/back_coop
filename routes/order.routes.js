@@ -1,5 +1,6 @@
 const { authJwt } = require("../middleware");
 const order_controller = require("../controllers/order.controller");
+const { or } = require("sequelize");
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -11,9 +12,14 @@ module.exports = function(app) {
     });
 
     app.post(
-        "/category/order",
+        "/order/create",
         order_controller.createOrder
     );
+
+    app.post(
+      "/createOrderItem/:product_id",
+      order_controller.createOrderItem
+    )
 
 
 };

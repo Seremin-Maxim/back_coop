@@ -4,6 +4,7 @@ const Order = db.Orders;
 const OrderItem = db.OrderItems;
 exports.createOrder = async (req, res) => {
     try {
+        console.log("YYYYYYYYYYYYYYYYY : ", req.body.customer_id);
         const order = await Order.create({
             address: req.body.address,
             city: req.body.city,
@@ -23,7 +24,7 @@ exports.createOrder = async (req, res) => {
 
 exports.createOrderItem = async (req, res) => {
     try {
-        const prod_id = req.body.product_id;
+        const prod_id = req.params.product_id;
         const orderItem = await OrderItem.create({
             product_id: prod_id,
             quantity: req.body.quantity,

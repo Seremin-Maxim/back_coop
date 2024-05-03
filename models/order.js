@@ -12,17 +12,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       //Order.hasOne(models.Payment, {foreignKey:'order_id'})
       Orders.hasMany(models.OrderItems, {foreignKey:'order_id'})
+      Orders.belongsTo(models.Customer, {foreignKey:'customer_id'});
     }
   }
   Orders.init({
-    total_price: DataTypes.INTEGER,
     address: DataTypes.STRING,
     city: DataTypes.STRING,
     date: DataTypes.DATE,
     state: DataTypes.ENUM('заказ создан','на подтверждении','продавец собирает заказ','товары отправлены','товар можно забрать','получена'),
     country: DataTypes.STRING,
     zip_code: DataTypes.INTEGER,
-    method: DataTypes.STRING
+    method: DataTypes.STRING,
+    customer_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Orders',
