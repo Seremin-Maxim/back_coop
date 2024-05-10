@@ -38,7 +38,7 @@ module.exports = function(app) {
   app.get(
     "/getProductById/:id",
     product_controller.getProductById
-  )
+  );
   
   app.get(
     "/getProductsByBrand/:brand_id",

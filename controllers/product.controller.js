@@ -6,6 +6,7 @@ const {Op} = require('sequelize');
 const Product = db.Product;
 const Product_Info = db.Product_Info;
 
+
 exports.createProduct = async (req, res) => {
     try {
         const category_id = req.params.category_id;
@@ -15,8 +16,8 @@ exports.createProduct = async (req, res) => {
         img.mv(path.resolve(__dirname,'..','static',fileName))
         //console.log("category_id ========== ", category_id);
         //console.log("brand_id ========== ", brand_id);
-        console.log("CARTIIIIIIIIIIIIIIIINKA =", img)
-        console.log("NAME =======================================" + req.body.product_name);
+        //console.log("CARTIIIIIIIIIIIIIIIINKA =", img)
+        //console.log("NAME =======================================" + req.body.product_name);
         const prod = await Product.create({
             category_id: req.body.category_id,
             brand_id: req.body.brand_id,
@@ -26,7 +27,7 @@ exports.createProduct = async (req, res) => {
             product_name: req.body.product_name,
             img: fileName
         });
-        console.log("CHTO ZA BUSINESS SUKA", prod)
+        //console.log("CHTO ZA BUSINESS SUKA", prod)
         return res.json(prod);
     } catch (error) {
         console.error('Ошибка при создании продукта:', error);

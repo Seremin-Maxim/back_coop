@@ -45,6 +45,7 @@ require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/shoppingCart.roues')(app);
 require('./routes/picture.routes')(app);
+require('./routes/order.routes')(app);
 
 //маршрут для обработки запросов профиля пользователя
 app.get('api/user/profile',authJwt.verifyToken, userController.getUserProfile);
@@ -74,6 +75,8 @@ app.get('/api/getAllShCDevicesByID');
 
 //ХЗ СХУЯЛИ, НО РАБОТАЕТ -> в шопингКарт.жсх
 app.delete('api/deleteShCDevice');
+app.delete('api/clearShoppingCart');
+app.delete('api/clearShoppingCart');
 
 //НЕ РАБОТАЕТ
 app.get('/api/getShoppingCartDevice');
@@ -87,6 +90,13 @@ app.get('/api/giveMeFuckingShC_Device/');
 app.get('/api/getProductByName');
 
 app.get('/api/searchProducts');
+
+
+app.post('/api/order/create');
+app.post('/api/createOrderItem');
+app.get('/api/getAllOrders');
+app.get('/api/getAllOrderItems');
+app.get('/api/getAllProductsByOrder');
 /*
 Role.bulkCreate([
   {name:"user"},

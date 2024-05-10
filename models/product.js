@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'product_id'
       })
       // ЭТО Я ИЗМЕНИЛ
-      Product.hasOne(models.OrderItem, {
-        foreignKey: 'order_item_id'
+      Product.hasOne(models.OrderItems, {
+        foreignKey: 'id'
     });
       Product.belongsTo(models.Brands,
         {

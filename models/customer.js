@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         })
       Customer.hasOne(models.Wishlist, {foreignKey:'customer_id'})
       Customer.hasOne(models.ShoppingCarts, {foreignKey:'customer_id'})
+      Customer.hasMany(models.Orders, {foreignKey:'customer_id'});
     }
   }
   Customer.init({
