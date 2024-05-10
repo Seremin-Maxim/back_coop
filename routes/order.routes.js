@@ -19,7 +19,20 @@ module.exports = function(app) {
     app.post(
       "/createOrderItem/:product_id",
       order_controller.createOrderItem
+    );
+
+    app.get(
+      "/getAllOrders/:customer_id",
+      order_controller.getAllOrders
+    );
+
+    app.get(
+      "/getAllOrderItems/:order_id",
+      order_controller.getAllOrdersItems
+    );
+
+    app.get(
+      "/getAllProductsByOrder/:order_id",
+      order_controller.getAllProductsByOrder
     )
-
-
 };

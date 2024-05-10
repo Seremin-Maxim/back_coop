@@ -134,6 +134,24 @@ exports.checkIfExistsShoppingCartDevice = async (req, res) => {
 };
 
 
+exports.deleteAllShCDevices = async (req, res) => {
+    try{
+        const id = req.params.shc_id;
+        const shc_device = await ShCDevice.destroy({
+            where: {  shc_id: id }
+        })
+        if (shc_device) {
+            return res.json({ message: 'Все ShCDevice успешно удалены' });
+        } else {
+            return res.status(404).json({ error: 'ShCDevice не найдены' });
+        }
+    }catch (error) {
+        console.error('Ошибка при удалении SCH_DEVICE:', error);
+        return res.status(500).json({ error: 'Ошибка при удалении SCH_DEVICE' });
+    }
+};
+
+
 
 
 

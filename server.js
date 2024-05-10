@@ -75,6 +75,7 @@ app.get('/api/getAllShCDevicesByID');
 
 //ХЗ СХУЯЛИ, НО РАБОТАЕТ -> в шопингКарт.жсх
 app.delete('api/deleteShCDevice');
+app.delete('api/clearShoppingCart');
 
 //НЕ РАБОТАЕТ
 app.get('/api/getShoppingCartDevice');
@@ -92,6 +93,9 @@ app.get('/api/searchProducts');
 
 app.post('/api/order/create');
 app.post('/api/createOrderItem');
+app.get('/api/getAllOrders');
+app.get('/api/getAllOrderItems');
+app.get('/api/getAllProductsByOrder');
 /*
 Role.bulkCreate([
   {name:"user"},

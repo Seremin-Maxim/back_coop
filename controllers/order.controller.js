@@ -1,7 +1,8 @@
-const { or } = require("sequelize");
+const { or, where } = require("sequelize");
 const db = require("../models");
 const Order = db.Orders;
 const OrderItem = db.OrderItems;
+const Product = db.Product;
 exports.createOrder = async (req, res) => {
     try {
         console.log("YYYYYYYYYYYYYYYYY : ", req.body.customer_id);
@@ -37,23 +38,41 @@ exports.createOrderItem = async (req, res) => {
     }
 };
 
-/*
-    const addDeviceToOrderItem = async (id) => {
-        try {
-            const response = await Axios.delete(`/api/deleteShCDevice/${id}`);
-            console.log(response.data);
-            setProductIDs(product_ids.filter(item => item.product_id !== id));
-            setProducts(products.filter(product => product.id !== id)); // Добавьте эту строку
-        } catch (error) {
-            console.error('Ошибка при удалении устройства:', error);
-        }
-    };
-    */
 
+exports.getAllOrders = async (req, res) => {
+    try {
+        const customer_id = req.params.customer_id;
+        console.log("OOOOOOOOOOORRRRRRRDER CustomerID : ", customer_id);
+        const orders = await Order.findAll({ where: { customer_id: customer_id } });
+        return res.json(orders);
+    } catch (error) {
+        console.error('Ошибка при посике orders:', error);
+        return res.status(500).json({ error: 'Ошибка при посике orders' });
+    }
+};
 
+exports.getAllOrdersItems = async (req, res) => {
+    try {
+        const order_id = req.params.order_id;
+        const orderItems = await OrderItem.findAll({ where: { order_id: order_id } });
+        return res.json(orderItems);
+    } catch (error) {
+        console.error('Ошибка при посике orders:', error);
+        return res.status(500).json({ error: 'Ошибка при посике orders' });
+    }
+};
 
-
-
-
+exports.getAllProductsByOrder = async (req, res) => {
+    try {
+        const order_id = req.params.order_id;
+        const orderItems = await OrderItem.findAll({ where: { order_id: order_id } });
+        const productIds = orderItems.map(item => item.product_id);
+        const products = await Product.findAll({ where: { id: productIds } });
+        return res.json(products);
+    } catch (error) {
+        console.error('Ошибка при поиске:', error);
+        return res.status(500).json({ error: 'Ошибка при поиске' });
+    }
+};
 
 

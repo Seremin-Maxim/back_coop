@@ -48,6 +48,11 @@ module.exports = function(app) {
     app.get(
         "/giveMeFuckingShC_Device/:product_id",
         sh_controller.checkIfExistsShoppingCartDevice
-    )
+    );
+
+    app.delete(
+        "/clearShoppingCart/:shc_id",
+        sh_controller.deleteAllShCDevices
+    );
 
 };
