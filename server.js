@@ -76,7 +76,6 @@ app.get('/api/getAllShCDevicesByID');
 //ХЗ СХУЯЛИ, НО РАБОТАЕТ -> в шопингКарт.жсх
 app.delete('api/deleteShCDevice');
 app.delete('api/clearShoppingCart');
-app.delete('api/clearShoppingCart');
 
 //НЕ РАБОТАЕТ
 app.get('/api/getShoppingCartDevice');
